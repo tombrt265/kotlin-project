@@ -142,7 +142,6 @@
           <targetTests>
             <param>hwr.oop.*</param>
           </targetTests>
-          <testPlugin>kotest</testPlugin>
         </configuration>
         <executions>
           <execution>
