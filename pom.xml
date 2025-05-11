@@ -6,14 +6,14 @@
 
   <groupId>hwr.oop.projects</groupId>
 
-  <!-- TODO Change name and description according to your project -->
-  <artifactId>project</artifactId>
+  <artifactId>expense-tracker</artifactId>
   <packaging>jar</packaging>
   <version>0.1.0-SNAPSHOT</version>
 
-  <!-- TODO Change name and description according to your project -->
-  <name>project</name>
-  <description>project-description</description>
+  <name>expense-tracker</name>
+  <description>
+    A simple expense tracker application.
+  </description>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -106,7 +106,7 @@
           </descriptorRefs>
           <archive>
             <manifest>
-              <mainClass>hwr.oop.MainKt</mainClass>
+              <mainClass>main.Main</mainClass>
             </manifest>
           </archive>
         </configuration>

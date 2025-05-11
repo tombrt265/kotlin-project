@@ -1,11 +1,6 @@
-# HWR OOP Lecture Project Template
+# Expense Tracker
 
-[TODO]: # (Change README.md Headline to better fit to your project!)
-
-This repository contains a student project created for an ongoing lecture on object-oriented
-programming with Kotlin at HWR Berlin (summer term 2025).
-
-> :warning: This code is for educational purposes only. Do not rely on it!
+This repository contains a project created for the tracking, sorting and filtering of expenses.
 
 ## Prerequisites
 
@@ -41,9 +36,18 @@ just build
 
 ## Abstract
 
-[TODO]: # (Write a short description of your project.)
-[TODO]: # (State most important features.)
+This project is a simple expense tracker that allows users to track their expenses, sort them by date, and filter them by category. 
+The project is built using Java and Maven, and it uses a simple text file to store the expenses.
+
+Most important features:
+- Add expenses
+- Sort expenses by date
+- Filter expenses by category
+- Save expenses to a text file
+
 [TODO]: # (State the most interesting problems you encountered during the project.)
+
+Most interesting problems:
 
 ## Feature List
 
@@ -61,19 +65,6 @@ just build
 |--------|-----------------|------------------------|----------------------|
 | 1      | /               | /                      | /                    |
 
-## Instructions
-
-[TODO]: # (Remove these instructions once you finished your fork's setup.)
-
-Use a fork of this repository to do implement your project.
-
-Remember to add this repository as a second remote repository (upstream) and pull from the correct
-remotes.
-This is necessary, because we might apply changes to this template during the next month.
-
-The following section describes how to add multiple remote repositories to your local repository,
-which is cloned from the fork.
-
 ### Formatting
 
 The repository contains an IntelliJ IDEA formatter configuration file.
@@ -84,45 +75,6 @@ Under **Settings**, go to **Editor**, then **Code Style**, click the **Gear Symb
 
 Make sure to always use the imported `HWR OOP` code style when formatting your code.
 Be aware that it might differ from the code style configured in your *Project*, or IntelliJ's *Default* code style.
-
-### Multiple remote repositories
-
-Your local repository should have a reference to both the fork (your own remote repository)
-and the original remote repository.
-To configure your git remote repositories, use the `git remote` command set.
-
-1. Clone your fork and go enter the repository.
-
-```
-git clone <fork-url>
-cd <created-folder>
-```
-
-2. Now your fork is configured as primary remote repository (origin).
-   Next to origin, you should add the original repository as a second remote repository (upstream).
-
-```
-git remote add upstream <repository-url>
-```
-
-3. Verify that both remotes are configured correctly.
-   The following command should list both remotes: origin and upstream.
-
-```
-git remote -v
-```
-
-4. To fetch changes from all remote repositories, use:
-
-```
-git fetch --all
-```
-
-5. If there are interesting changes (in e.g. the `main` branch) to merge into your branch, use:
-
-```
-git pull upstream main
-```
 
 [maven]: https://maven.apache.org/
 [just]: https://github.com/casey/just

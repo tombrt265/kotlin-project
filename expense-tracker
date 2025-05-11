@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# TODO Rename this `cli` file to your project's domain, i. e. 'chess', 'pokemon', or 'poker'
+java -jar target/expense-tracker-0.1.0-SNAPSHOT-jar-with-dependencies.jar "$@"
