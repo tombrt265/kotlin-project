@@ -72,8 +72,8 @@
   </dependencies>
 
   <build>
-    <sourceDirectory>src/main/kotlin</sourceDirectory>
-    <testSourceDirectory>src/test/kotlin</testSourceDirectory>
+    <sourceDirectory>src/main/kotlin/expenseTracker</sourceDirectory>
+    <testSourceDirectory>src/test/kotlin/expenseTracker</testSourceDirectory>
     <plugins>
       <plugin>
         <groupId>org.jetbrains.kotlin</groupId>
@@ -137,10 +137,10 @@
         <version>${pitest.version}</version>
         <configuration>
           <targetClasses>
-            <param>hwr.oop.*</param>
+            <param>expenseTracker.*</param>
           </targetClasses>
           <targetTests>
-            <param>hwr.oop.*</param>
+            <param>expenseTracker.*</param>
           </targetTests>
         </configuration>
         <executions>
@@ -152,6 +152,14 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>8</source>
+          <target>8</target>
+        </configuration>
       </plugin>
     </plugins>
   </build>
