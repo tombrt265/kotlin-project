@@ -39,23 +39,17 @@ just build
 This project is a simple expense tracker that allows users to track their expenses, sort them by date, and filter them by category. 
 The project is built using Java and Maven, and it uses a simple text file to store the expenses.
 
-Most important features:
-- Add expenses
-- Sort expenses by date
-- Filter expenses by category
-- Save expenses to a text file
-
-[TODO]: # (State the most interesting problems you encountered during the project.)
-
 Most interesting problems:
+- different files might have different column names which makes it difficult to parse the files
 
 ## Feature List
 
-[TODO]: # (For each feature implemented, add a row to the table!)
-
-| Number | Feature | Tests |
-|--------|---------|-------|
-| 1      | /       | /     |
+| Number | Feature               | Tests      |
+|--------|-----------------------|------------|
+| 1      | Add Expense File      | InputTest  |
+| 2      | Sort By Date          | InputTest  |
+| 3      | Filter By Category    | InputTest  |
+| 4      | Save Expenses To File | OutputTest |
 
 ## Additional Dependencies
 
