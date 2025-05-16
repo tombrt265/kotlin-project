@@ -1,18 +1,18 @@
-package expenseTracker
+package expenseTracker.input
 
-import utils.Constants.EXCHANGE_FOLDER
+import expenseTracker.persistence.*
+import expenseTracker.utils.Constants.INPUT_FOLDER
 import io.kotest.core.spec.style.AnnotationSpec
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.assertThrows
-import persistence.*
 import java.io.File
 
 class InputTest : AnnotationSpec() {
 
   @BeforeEach
   fun cleanUpBefore() {
-    File(EXCHANGE_FOLDER).deleteRecursively()
-    val folder = File(EXCHANGE_FOLDER)
+    File(INPUT_FOLDER).deleteRecursively()
+    val folder = File(INPUT_FOLDER)
     if (!folder.exists()) {
       folder.mkdirs()
     }
@@ -20,7 +20,7 @@ class InputTest : AnnotationSpec() {
 
   @AfterEach
   fun tearDownAfter() {
-    File(EXCHANGE_FOLDER).deleteRecursively()
+    File(INPUT_FOLDER).deleteRecursively()
   }
 
   @Test
@@ -30,39 +30,46 @@ class InputTest : AnnotationSpec() {
     // When
 
     // Then
-    assertThrows<EmptyFolderException> { CsvManager.readCsvFiles() }
+    assertThrows<EmptyFolderException> { CsvManager().readCsvFiles() }
   }
 
   @Test
   fun `detect empty file in exchange folder`() {
     // Given
-    File(EXCHANGE_FOLDER, "empty.csv").writeText("")
+    File(INPUT_FOLDER, "empty.csv").writeText("")
 
     // When
 
     // Then
-    assertThrows<EmptyFileException> { CsvManager.readCsvFiles() }
+    assertThrows<EmptyFileException> { CsvManager().readCsvFiles() }
   }
 
   @Test
   fun `file is not csv`() {
     // Given
-    File(EXCHANGE_FOLDER, "notCsv.txt").writeText("Buchungstag;Beguenstigter;Betrag")
+    File(INPUT_FOLDER, "notCsv.txt").writeText("""
+      "Buchungstag";"Beguenstigter";"Betrag"
+    """.trimIndent())
 
     // When
 
     // Then
-    assertThrows<EmptyFolderException> { CsvManager.readCsvFiles() }
+    assertThrows<EmptyFolderException> { CsvManager().readCsvFiles() }
   }
 
   @Test
   fun `not all files are csv`() {
     // Given
-    File(EXCHANGE_FOLDER, "notCsv.txt").writeText("Buchungstag;Beguenstigter;Betrag")
-    File(EXCHANGE_FOLDER, "test1.csv").writeText("Buchungstag;Beguenstigter;Betrag\n10.10.2025;NETTO;100€")
+    File(INPUT_FOLDER, "notCsv.txt").writeText("""
+      "Buchungstag";"Beguenstigter";"Betrag"   
+      """.trimIndent())
+    File(INPUT_FOLDER, "test1.csv").writeText("""
+      "Buchungstag";"Beguenstigter";"Betrag"
+      "10.10.2025";"NETTO";"100€"
+      """.trimIndent())
 
     // When
-    val fileContent = CsvManager.readCsvFiles()
+    val fileContent = CsvManager().readCsvFiles()
 
     // Then
     assertThat(fileContent).isEqualTo(
@@ -84,35 +91,35 @@ class InputTest : AnnotationSpec() {
   @Test
   fun `detect empty file in exchange folder with header`() {
     // Given
-    File(EXCHANGE_FOLDER, "onlyHeader.csv").writeText("Buchungstag;Beguenstigter;Betrag")
+    File(INPUT_FOLDER, "onlyHeader.csv").writeText("Buchungstag;Beguenstigter;Betrag")
 
     // When
 
     // Then
-    assertThrows<NoContentInFileException> { CsvManager.readCsvFiles() }
+    assertThrows<NoContentInFileException> { CsvManager().readCsvFiles() }
   }
 
   @Test
   fun `detect file in exchange folder without header`() {
     // Given
-    File(EXCHANGE_FOLDER, "noHeader.csv").writeText("10.10.2025;NETTO;100€")
+    File(INPUT_FOLDER, "noHeader.csv").writeText("10.10.2025;NETTO;100€")
 
     // When
 
     // Then
-    assertThrows<NotAllImportantColumnsInFileException> { CsvManager.readCsvFiles() }
+    assertThrows<NotAllImportantColumnsInFileException> { CsvManager().readCsvFiles() }
   }
 
   @Test
   fun `file has header and content`() {
     // Given
     File(
-      EXCHANGE_FOLDER,
+      INPUT_FOLDER,
       "withHeader.csv"
     ).writeText("Buchungstag;Beguenstigter;Betrag;TestColumn\n10.10.2025;NETTO;100€;TestValue\n11.10.2025;NETTO;200€;TestValue2")
 
     // When
-    val fileContent = CsvManager.readCsvFiles()
+    val fileContent = CsvManager().readCsvFiles()
 
     // Then
     assertThat(fileContent).isEqualTo(
@@ -135,12 +142,12 @@ class InputTest : AnnotationSpec() {
   fun `file has duplicate rows`() {
     // Given
     File(
-      EXCHANGE_FOLDER,
+      INPUT_FOLDER,
       "duplicateRows.csv"
     ).writeText("Buchungstag;Beguenstigter;Betrag\n10.10.2025;NETTO;100€\n10.10.2025;NETTO;100€")
 
     // When
-    val fileContent = CsvManager.readCsvFiles()
+    val fileContent = CsvManager().readCsvFiles()
 
     // Then
     assertThat(fileContent).isEqualTo(
@@ -163,29 +170,29 @@ class InputTest : AnnotationSpec() {
   fun `file does not have all important columns`() {
     // Given
     File(
-      EXCHANGE_FOLDER,
+      INPUT_FOLDER,
       "noImportantColumns.csv"
     ).writeText("TestColumn1;TestColumn2;TestColumn3\n10.10.2025;NETTO;100€")
     // When
 
     // Then
-    assertThrows<NotAllImportantColumnsInFileException> { CsvManager.readCsvFiles() }
+    assertThrows<NotAllImportantColumnsInFileException> { CsvManager().readCsvFiles() }
   }
 
   @Test
   fun `two files have content`() {
     // Given
     File(
-      EXCHANGE_FOLDER,
+      INPUT_FOLDER,
       "file1.csv"
     ).writeText("Buchungstag;Beguenstigter;Betrag\n10.10.2025;NETTO;100€\n11.10.2025;NETTO;200€")
     File(
-      EXCHANGE_FOLDER,
+      INPUT_FOLDER,
       "file2.csv"
     ).writeText("Buchungstag;Beguenstigter;Betrag\n12.10.2025;NETTO;300€\n13.10.2025;NETTO;400€")
 
     // When
-    val fileContent = CsvManager.readCsvFiles()
+    val fileContent = CsvManager().readCsvFiles()
 
     // Then
     assertThat(fileContent).isEqualTo(
@@ -211,16 +218,16 @@ class InputTest : AnnotationSpec() {
   fun `two files have duplicates`() {
     // Given
     File(
-      EXCHANGE_FOLDER,
+      INPUT_FOLDER,
       "file1.csv"
     ).writeText("Buchungstag;Beguenstigter;Betrag\n10.10.2025;NETTO;100€\n11.10.2025;NETTO;200€")
     File(
-      EXCHANGE_FOLDER,
+      INPUT_FOLDER,
       "file2.csv"
     ).writeText("Buchungstag;Beguenstigter;Betrag\n10.10.2025;NETTO;100€\n11.10.2025;NETTO;300€")
 
     // When
-    val fileContent = CsvManager.readCsvFiles()
+    val fileContent = CsvManager().readCsvFiles()
 
     // Then
     assertThat(fileContent).isEqualTo(

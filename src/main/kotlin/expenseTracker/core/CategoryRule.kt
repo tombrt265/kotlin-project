@@ -1,4 +1,4 @@
-package core
+package expenseTracker.core
 
 data class CategoryRule(
   val keyword: String,

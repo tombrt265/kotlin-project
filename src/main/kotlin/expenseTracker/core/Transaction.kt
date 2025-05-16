@@ -1,10 +1,8 @@
-package core
-
-import java.time.LocalDate
+package expenseTracker.core
 
 data class Transaction(
-  val date: LocalDate,
+  val date: String,
   val amount: Double,
   val description: String,
-  var category: String? = null
+  var category: String = ""
   )

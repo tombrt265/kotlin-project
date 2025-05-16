@@ -28,6 +28,7 @@
     <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
     <maven-failsafe-plugin.version>2.22.2</maven-failsafe-plugin.version>
     <maven-assembly-plugin.version>3.7.1</maven-assembly-plugin.version>
+    <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
     <pitest.version>1.19.1</pitest.version>
     <kotest-extensions-pitest.version>1.2.0</kotest-extensions-pitest.version>
   </properties>
@@ -72,8 +73,8 @@
   </dependencies>
 
   <build>
-    <sourceDirectory>src/main/kotlin/expenseTracker</sourceDirectory>
-    <testSourceDirectory>src/test/kotlin/expenseTracker</testSourceDirectory>
+    <sourceDirectory>src/main/kotlin</sourceDirectory>
+    <testSourceDirectory>src/test/kotlin</testSourceDirectory>
     <plugins>
       <plugin>
         <groupId>org.jetbrains.kotlin</groupId>
@@ -106,7 +107,7 @@
           </descriptorRefs>
           <archive>
             <manifest>
-              <mainClass>main.Main</mainClass>
+              <mainClass>expenseTracker.main.MainKt</mainClass>
             </manifest>
           </archive>
         </configuration>
@@ -156,6 +157,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin.version}</version>
         <configuration>
           <source>8</source>
           <target>8</target>

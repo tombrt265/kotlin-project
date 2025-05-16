@@ -1,9 +1,9 @@
-package persistence
+package expenseTracker.persistence
 
-import core.Transaction
+import expenseTracker.core.Transaction
 
 interface ReadFilePort {
-    fun readCsvFiles(): Set<List<String>>
+    fun readCsvFiles(): MutableSet<MutableList<String>>
 }
 
 interface WriteFilePort {
