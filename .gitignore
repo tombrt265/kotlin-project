@@ -33,3 +33,6 @@ build/
 ### Maven Wrapper ###
 /.mvn/wrapper/maven-wrapper.jar
 /.env/
+
+### I/O Files ###
+exchange
